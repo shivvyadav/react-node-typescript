@@ -20,3 +20,28 @@ app.use(
     credentials: true, // allow cookies
   }),
 );
+
+// enable json body parsing
+app.use(express.json());
+
+//enable urlencoded body parsing
+app.use(express.urlencoded({ extended: true }));
+
+// cookies parser
+import cookieParser from 'cookie-parser';
+app.use(cookieParser());
+
+// for compression
+import compression from 'compression';
+app.use(
+  compression({
+    threshold: 1024, // only compress responses larger than 1kb
+  }),
+);
+
+// set helmet for security
+import helmet from 'helmet';
+app.use(helmet());
+
+// import and apply rate limiter middleware
+app.use(apiRateLimiter);
